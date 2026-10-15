@@ -1,13 +1,7 @@
-const dns = require('dns');
-try {
-  dns.setServers(['8.8.8.8', '1.1.1.1']);
-} catch (e) {}
-
-const { Pool } = require('@neondatabase/serverless');
+const { Pool } = require('pg');
 require('dotenv').config();
 
 let pool = null;
-let isConnected = false;
 
 const { generateInitialTelemetry, generateInitialAlerts } = require('./seedData');
 
@@ -33,10 +27,14 @@ function getPool() {
   }
 
   try {
+    // pg parses SSL parameters from the URL after its explicit SSL options.
+    // Enforce certificate verification even for Neon URLs using sslmode=require.
+    const databaseUrl = new URL(connectionString);
+    databaseUrl.searchParams.set('sslmode', 'verify-full');
     pool = new Pool({
-      connectionString,
+      connectionString: databaseUrl.toString(),
       ssl: {
-        rejectUnauthorized: false
+        rejectUnauthorized: true
       },
       max: 10,
       idleTimeoutMillis: 30000,
@@ -50,7 +48,7 @@ function getPool() {
     return pool;
   } catch (err) {
     console.error('❌ [Neon DB] Error al crear pool de Neon:', err.message);
-    return null;
+    throw err;
   }
 }
 

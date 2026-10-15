@@ -1,0 +1,21 @@
+{
+  "name": "machine-energy-monitor-backend",
+  "version": "1.0.0",
+  "description": "Backend API para monitorización de consumo eléctrico con Neon PostgreSQL y alertas Gmail",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "import:excel": "node scripts/importExcel.js",
+    "generate:templates": "node scripts/generateExcelTemplates.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
+    "pg": "^8.13.1",
+    "xlsx": "^0.18.5"
+  }
+}

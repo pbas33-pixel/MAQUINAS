@@ -1,0 +1,15 @@
+{
+  "name": "machine-energy-monitor-workspace",
+  "version": "1.0.0",
+  "description": "Sistema desacoplado de monitorización de consumo eléctrico de 4 máquinas industriales con Neon Postgres, Dashboard y Alertas Gmail",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "start:backend": "npm --prefix backend start",
+    "build:frontend": "npm --prefix frontend run build",
+    "import:excel": "npm --prefix backend run import:excel"
+  },
+  "keywords": ["energy-monitor", "neon-postgres", "industrial-dashboard", "gmail-alerts"],
+  "author": "",
+  "license": "MIT"
+}
